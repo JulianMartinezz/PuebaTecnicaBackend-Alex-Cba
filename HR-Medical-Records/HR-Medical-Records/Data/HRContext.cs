@@ -20,9 +20,6 @@ public partial class HRContext : DbContext
 
     public virtual DbSet<TMedicalRecord> TMedicalRecords { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("DefaultConnection");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<MedicalRecordType>(entity =>

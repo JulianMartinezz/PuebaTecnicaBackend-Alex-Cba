@@ -1,0 +1,48 @@
+﻿using HR_Medical_Records.Service.Interface;
+using Microsoft.AspNetCore.Mvc;
+
+namespace HR_Medical_Records.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class MedicalRecordController : Controller
+    {
+        private readonly IMedicalRecordService _medicalRecordService;
+        public MedicalRecordController(IMedicalRecordService medicalRecordService)
+        {
+            _medicalRecordService = medicalRecordService;
+        }
+
+        //[HttpGet("filter")]
+        //public async Task<IActionResult> GetFilterMedicalRecords()
+        //{
+
+        //}
+
+        [HttpGet("{medicalRecordId}")]
+        public async Task<IActionResult> GetMedicalRecordById([FromRoute] int medicalRecordId)
+        {
+            var response = _medicalRecordService.GetMedicalRecordById(medicalRecordId);
+            return Ok(response);
+        }
+
+        //[HttpPost("register")]
+        //public async Task<IActionResult> AddMedicalRecord([FromBody] CreateMedicalRecord request)
+        //{
+
+        //}
+
+
+        //[HttpPut("update")]
+        //public async Task<IActionResult> UpdateMedicalRecord([FromBody] UpdateMedicalRecord request)
+        //{
+
+        //}
+
+        //[HttpPatch("softDelete/{medicalRecordId}")]
+        //public async Task<IActionResult> DeleteMedicalRecord([FromRoute] int medicalRecordId)
+        //{
+
+        //}
+    }
+}
