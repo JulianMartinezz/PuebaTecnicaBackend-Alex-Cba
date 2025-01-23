@@ -1,12 +1,136 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|c:\\users\\lalee\\onedrive\\documentos\\github\\puebatecnicabackend-alex-cba\\hr-medical-records\\hr-medical-records\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|solutionrelative:hr-medical-records\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|c:\\users\\lalee\\onedrive\\documentos\\github\\puebatecnicabackend-alex-cba\\hr-medical-records\\hr-medical-records\\data\\hrcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|solutionrelative:hr-medical-records\\data\\hrcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|c:\\users\\lalee\\onedrive\\documentos\\github\\puebatecnicabackend-alex-cba\\hr-medical-records\\hr-medical-records\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|solutionrelative:hr-medical-records\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|c:\\users\\lalee\\onedrive\\documentos\\github\\puebatecnicabackend-alex-cba\\hr-medical-records\\hr-medical-records\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|solutionrelative:hr-medical-records\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|c:\\users\\lalee\\onedrive\\documentos\\github\\puebatecnicabackend-alex-cba\\hr-medical-records\\hr-medical-records\\middleware\\errormiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|solutionrelative:hr-medical-records\\middleware\\errormiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|c:\\users\\lalee\\onedrive\\documentos\\github\\puebatecnicabackend-alex-cba\\hr-medical-records\\hr-medical-records\\dtos\\baseresponse\\baseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|solutionrelative:hr-medical-records\\dtos\\baseresponse\\baseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|c:\\users\\lalee\\onedrive\\documentos\\github\\puebatecnicabackend-alex-cba\\hr-medical-records\\hr-medical-records\\middleware\\exceptions\\exceptionbadrequestclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2027046-4D43-41EE-9844-88EE65782970}|HR-Medical-Records\\HR-Medical-Records.csproj|solutionrelative:hr-medical-records\\middleware\\exceptions\\exceptionbadrequestclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HRContext.cs",
+              "DocumentMoniker": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\Data\\HRContext.cs",
+              "RelativeDocumentMoniker": "HR-Medical-Records\\Data\\HRContext.cs",
+              "ToolTip": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\Data\\HRContext.cs",
+              "RelativeToolTip": "HR-Medical-Records\\Data\\HRContext.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T15:01:29.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\Program.cs",
+              "RelativeDocumentMoniker": "HR-Medical-Records\\Program.cs",
+              "ToolTip": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\Program.cs",
+              "RelativeToolTip": "HR-Medical-Records\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T14:55:43.157Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "HR-Medical-Records\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\appsettings.Development.json",
+              "RelativeToolTip": "HR-Medical-Records\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-23T14:51:49.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\appsettings.json",
+              "RelativeDocumentMoniker": "HR-Medical-Records\\appsettings.json",
+              "ToolTip": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\appsettings.json",
+              "RelativeToolTip": "HR-Medical-Records\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-23T14:45:42.84Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BaseResponse.cs",
+              "DocumentMoniker": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\DTOs\\BaseResponse\\BaseResponse.cs",
+              "RelativeDocumentMoniker": "HR-Medical-Records\\DTOs\\BaseResponse\\BaseResponse.cs",
+              "ToolTip": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\DTOs\\BaseResponse\\BaseResponse.cs",
+              "RelativeToolTip": "HR-Medical-Records\\DTOs\\BaseResponse\\BaseResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T14:07:43.945Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ExceptionBadRequestClient.cs",
+              "DocumentMoniker": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\Middleware\\Exceptions\\ExceptionBadRequestClient.cs",
+              "RelativeDocumentMoniker": "HR-Medical-Records\\Middleware\\Exceptions\\ExceptionBadRequestClient.cs",
+              "ToolTip": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\Middleware\\Exceptions\\ExceptionBadRequestClient.cs",
+              "RelativeToolTip": "HR-Medical-Records\\Middleware\\Exceptions\\ExceptionBadRequestClient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T14:04:26.182Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ErrorMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\Middleware\\ErrorMiddleware.cs",
+              "RelativeDocumentMoniker": "HR-Medical-Records\\Middleware\\ErrorMiddleware.cs",
+              "ToolTip": "C:\\Users\\lalee\\OneDrive\\Documentos\\GitHub\\PuebaTecnicaBackend-Alex-Cba\\HR-Medical-Records\\HR-Medical-Records\\Middleware\\ErrorMiddleware.cs",
+              "RelativeToolTip": "HR-Medical-Records\\Middleware\\ErrorMiddleware.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowBsAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T14:01:50.149Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
