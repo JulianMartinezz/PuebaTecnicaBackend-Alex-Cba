@@ -1,4 +1,5 @@
-﻿using HR_Medical_Records.Service.Interface;
+﻿using HR_Medical_Records.DTOs.MedicalRecordDTOs;
+using HR_Medical_Records.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR_Medical_Records.Controllers
@@ -22,15 +23,16 @@ namespace HR_Medical_Records.Controllers
         [HttpGet("{medicalRecordId}")]
         public async Task<IActionResult> GetMedicalRecordById([FromRoute] int medicalRecordId)
         {
-            var response = _medicalRecordService.GetMedicalRecordById(medicalRecordId);
+            var response = await _medicalRecordService.GetMedicalRecordById(medicalRecordId);
             return Ok(response);
         }
 
-        //[HttpPost("register")]
-        //public async Task<IActionResult> AddMedicalRecord([FromBody] CreateMedicalRecord request)
-        //{
-
-        //}
+        [HttpPost("register")]
+        public async Task<IActionResult> AddMedicalRecord([FromBody] CreateMedicalRecord request)
+        {
+            var response = await _medicalRecordService.AddMedicalRecord(request);
+            return Ok(response);
+        }
 
 
         //[HttpPut("update")]

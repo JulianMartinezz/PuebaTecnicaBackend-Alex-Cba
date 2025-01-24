@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "ContainingType": "HR_Medical_Records.Controllers.MedicalRecordController",
+    "Method": "GetMedicalRecordById",
+    "RelativePath": "api/MedicalRecord/{medicalRecordId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "medicalRecordId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HR_Medical_Records.Controllers.MedicalRecordController",
+    "Method": "AddMedicalRecord",
+    "RelativePath": "api/MedicalRecord/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "HR_Medical_Records.DTOs.MedicalRecordDTOs.CreateMedicalRecord",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

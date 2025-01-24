@@ -8,10 +8,12 @@ namespace HR_Medical_Records.Middleware
     public class ErrorMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly IHostEnvironment _env;
 
-        public ErrorMiddleware(RequestDelegate next)
+        public ErrorMiddleware(RequestDelegate next, IHostEnvironment env)
         {
             _next = next;
+            _env = env;
         }
 
         public async Task Invoke(HttpContext context)
@@ -38,6 +40,7 @@ namespace HR_Medical_Records.Middleware
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         baseResponse.Message = e.Message;
                         baseResponse.Code = response.StatusCode;
+                        baseResponse.Exception = "BadRequest";
                         break;
 
                     case KeyNotFoundException e:
@@ -45,6 +48,7 @@ namespace HR_Medical_Records.Middleware
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         baseResponse.Message = e.Message;
                         baseResponse.Code = response.StatusCode;
+                        baseResponse.Exception = "KeyNotFoundException";
                         break;
 
                     default:
@@ -52,6 +56,7 @@ namespace HR_Medical_Records.Middleware
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         baseResponse.Message = "An unexpected error occurred.";
                         baseResponse.Code = response.StatusCode;
+                        baseResponse.Exception = "Exception";
                         break;
                 }
 

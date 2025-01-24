@@ -1,7 +1,11 @@
-﻿namespace HR_Medical_Records.Service.Interface
+﻿using HR_Medical_Records.DTOs.BaseResponse;
+using HR_Medical_Records.DTOs.MedicalRecordDTOs;
+
+namespace HR_Medical_Records.Service.Interface
 {
     public interface IMedicalRecordService
     {
-        object GetMedicalRecordById(int medicalRecordId);
+        Task<BaseResponse<MedicalRecordDTO>> GetMedicalRecordById(int medicalRecordId);
+        Task<BaseResponse<SimpleMedicalRecordDTO>> AddMedicalRecord(CreateMedicalRecord request);
     }
 }
