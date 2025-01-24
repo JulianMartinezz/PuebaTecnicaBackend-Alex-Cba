@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HR_Medical_Records.Service.Validator
 {
-    public class CreateMedicalRecordValidator : AbstractValidator<CreateMedicalRecord>
+    public class CreateMedicalRecordValidator : AbstractValidator<CreateAndUpdateMedicalRecord>
     {
         private readonly HRContext _context;
 

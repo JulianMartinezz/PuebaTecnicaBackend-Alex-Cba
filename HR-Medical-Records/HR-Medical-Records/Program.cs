@@ -30,8 +30,8 @@ builder.Services.AddDbContext<HRContext>(options =>
 builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
-builder.Services.AddValidatorsFromAssemblyContaining<CreateMedicalRecordValidator>();
-builder.Services.AddValidatorsFromAssemblyContaining<SoftDeleteMedicalRecordValidator>();
+builder.Services.AddTransient<CreateMedicalRecordValidator>();
+builder.Services.AddTransient<SoftDeleteMedicalRecordValidator>();
 
 
 var app = builder.Build();

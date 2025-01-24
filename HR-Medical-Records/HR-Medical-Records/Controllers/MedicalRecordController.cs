@@ -28,7 +28,7 @@ namespace HR_Medical_Records.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> AddMedicalRecord([FromBody] CreateMedicalRecord request,
+        public async Task<IActionResult> AddMedicalRecord([FromBody] CreateAndUpdateMedicalRecord request,
                                                           [FromHeader(Name = "x-user-id")] Guid userId)
         {
             if (userId == Guid.Empty)
@@ -36,16 +36,23 @@ namespace HR_Medical_Records.Controllers
                 return BadRequest("The 'x-user-id' header is required");
             }
 
-            var response = await _medicalRecordService.AddMedicalRecord(request, userId);
+            var response = await _medicalRecordService.AddUpdateMedicalRecord(request, userId);
             return Ok(response);
         }
 
 
-        //[HttpPut("update")]
-        //public async Task<IActionResult> UpdateMedicalRecord([FromBody] UpdateMedicalRecord request)
-        //{
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateMedicalRecord([FromBody] CreateAndUpdateMedicalRecord request,
+                                                             [FromHeader(Name = "x-user-id")] Guid userId)
+        {
+            if (userId == Guid.Empty)
+            {
+                return BadRequest("The 'x-user-id' header is required");
+            }
 
-        //}
+            var response = await _medicalRecordService.AddUpdateMedicalRecord(request, userId);
+            return Ok(response);
+        }
 
         [HttpPatch("softDelete")]
         public async Task<IActionResult> DeleteMedicalRecord([FromBody] SoftDeleteMedicalRecord request,

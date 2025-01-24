@@ -17,16 +17,19 @@ namespace HR_Medical_Records.Service.Imp
         private readonly IStatusRepository _statusRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<MedicalRecordService> _logger;
-        private readonly HRContext _context;
         private readonly IServiceProvider _serviceProvider;
 
-        public MedicalRecordService(IMedicalRecordRepository medicalRecordRepository, IStatusRepository statusRepository, IMapper mapper, HRContext context, IServiceProvider serviceProvider)
+        public MedicalRecordService(IMedicalRecordRepository medicalRecordRepository,
+                                    IStatusRepository statusRepository,
+                                    IMapper mapper,
+                                    ILogger<MedicalRecordService> logger,
+                                    IServiceProvider serviceProvider)
         {
             _medicalRecordRepository = medicalRecordRepository;
             _mapper = mapper;
-            _context = context;
             _serviceProvider = serviceProvider;
             _statusRepository = statusRepository;
+            _logger = logger;
         }
 
         public async Task<BaseResponse<MedicalRecordDTO>> GetMedicalRecordById(int medicalRecordId)
@@ -43,18 +46,26 @@ namespace HR_Medical_Records.Service.Imp
             return BaseResponseHelper.GetSuccessful(result);
         }
 
-        public async Task<BaseResponse<SimpleMedicalRecordDTO>> AddMedicalRecord(CreateMedicalRecord request, Guid userId)
+        public async Task<BaseResponse<SimpleMedicalRecordDTO>> AddUpdateMedicalRecord(CreateAndUpdateMedicalRecord request, Guid userId)
         {
-            request.CreatedBy = userId.ToString();
-            request.CreationDate = DateOnly.FromDateTime(DateTime.UtcNow);
-            await CheckValidator(request);
+            if (!request.MedicalRecordId.HasValue)
+            {
+                request.CreatedBy = userId.ToString();
+                request.CreationDate = DateOnly.FromDateTime(DateTime.UtcNow);
+                await CheckValidator(request);
 
-            var medicalRecord = _mapper.Map<TMedicalRecord>(request);
+                var medicalRecord = _mapper.Map<TMedicalRecord>(request);
 
-            var newMedicalRecord = await _medicalRecordRepository.Register(medicalRecord);
+                var newMedicalRecord = await _medicalRecordRepository.Register(medicalRecord);
 
-            var result = _mapper.Map<SimpleMedicalRecordDTO>(newMedicalRecord);
-            return BaseResponseHelper.CreateSuccessful(result);
+                var result = _mapper.Map<SimpleMedicalRecordDTO>(newMedicalRecord);
+                return BaseResponseHelper.CreateSuccessful(result);
+            }
+            else
+            {
+                //TODO: Update
+                return null;
+            }
         }
 
         public async Task<BaseResponse<SimpleMedicalRecordDTO>> DeleteMedicalRecord(SoftDeleteMedicalRecord request, Guid userId)

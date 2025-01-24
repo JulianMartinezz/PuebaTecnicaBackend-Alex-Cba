@@ -39,7 +39,7 @@ namespace HR_Medical_Records.Service.Validator
                 return false;
             }
 
-            bool isActive = medicalRecord.Status?.Name != "Inactive";
+            bool isActive = medicalRecord.StatusId != 2;
 
             bool isStartDateValid = medicalRecord.StartDate <= DateOnly.FromDateTime(DateTime.UtcNow);
 

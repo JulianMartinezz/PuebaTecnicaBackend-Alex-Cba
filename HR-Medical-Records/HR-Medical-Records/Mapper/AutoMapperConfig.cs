@@ -43,7 +43,7 @@ namespace HR_Medical_Records.Mapper
             */
 
             CreateMap<TMedicalRecord, MedicalRecordDTO>().ReverseMap();
-            CreateMap<TMedicalRecord, CreateMedicalRecord>().ReverseMap();
+            CreateMap<TMedicalRecord, CreateAndUpdateMedicalRecord>().ReverseMap();
         }
     }
 }

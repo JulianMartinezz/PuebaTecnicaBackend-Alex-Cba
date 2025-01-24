@@ -1,7 +1,8 @@
 ﻿namespace HR_Medical_Records.DTOs.MedicalRecordDTOs
 {
-    public class CreateMedicalRecord
+    public class CreateAndUpdateMedicalRecord
     {
+        public int? MedicalRecordId { get; set; }
         public int FileId { get; set; }
         public string? Audiometry { get; set; }
         public string? PositionChange { get; set; }
