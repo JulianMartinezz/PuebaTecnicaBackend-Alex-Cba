@@ -28,9 +28,15 @@ namespace HR_Medical_Records.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> AddMedicalRecord([FromBody] CreateMedicalRecord request)
+        public async Task<IActionResult> AddMedicalRecord([FromBody] CreateMedicalRecord request,
+                                                          [FromHeader(Name = "x-user-id")] Guid userId)
         {
-            var response = await _medicalRecordService.AddMedicalRecord(request);
+            if (userId == Guid.Empty)
+            {
+                return BadRequest("The 'x-user-id' header is required");
+            }
+
+            var response = await _medicalRecordService.AddMedicalRecord(request, userId);
             return Ok(response);
         }
 

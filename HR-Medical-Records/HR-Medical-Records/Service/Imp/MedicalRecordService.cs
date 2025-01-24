@@ -43,9 +43,9 @@ namespace HR_Medical_Records.Service.Imp
             return BaseResponseHelper.GetSuccessful(result);
         }
 
-        public async Task<BaseResponse<SimpleMedicalRecordDTO>> AddMedicalRecord(CreateMedicalRecord request)
+        public async Task<BaseResponse<SimpleMedicalRecordDTO>> AddMedicalRecord(CreateMedicalRecord request, Guid userId)
         {
-            //request.CreatedBy = 
+            request.CreatedBy = userId.ToString();
             request.CreationDate = DateOnly.FromDateTime(DateTime.UtcNow);
             await CheckValidator(request);
 
@@ -57,7 +57,7 @@ namespace HR_Medical_Records.Service.Imp
             return BaseResponseHelper.CreateSuccessful(result);
         }
 
-        public async Task CheckValidator<T>(T requestCommand) where T : class
+        private async Task CheckValidator<T>(T requestCommand) where T : class
         {
             var validator = _serviceProvider.GetService<IValidator<T>>();
 
