@@ -14,7 +14,7 @@ namespace HR_Medical_Records.Helpers
                 Success = true,
                 Message = message,
                 Data = data,
-                Code = 200,
+                Code = 201,
                 TotalRows = totalRows ?? 0
             };
         }
@@ -31,18 +31,6 @@ namespace HR_Medical_Records.Helpers
                 Data = data,
                 Code = 200,
                 TotalRows = totalRows ?? 0
-            };
-        }
-
-        public static BaseResponse<T> CreateError<T>(string message, int errorCode = 400, T data = default)
-        {
-            return new BaseResponse<T>
-            {
-                Success = false,
-                Message = message,
-                Data = data,
-                Code = errorCode,
-                TotalRows = 0
             };
         }
 

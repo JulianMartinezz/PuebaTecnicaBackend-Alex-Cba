@@ -54,6 +54,8 @@ public partial class TMedicalRecord
 
     public string? AreaChange { get; set; }
 
+    public int? FileId { get; set; }
+
     public virtual MedicalRecordType? MedicalRecordType { get; set; }
 
     public virtual Status? Status { get; set; }

@@ -95,6 +95,7 @@ public partial class HRContext : DbContext
             entity.Property(e => e.FatherData)
                 .HasMaxLength(2000)
                 .HasColumnName("father_data");
+            entity.Property(e => e.FileId).HasColumnName("file_id");
             entity.Property(e => e.MedicalBoard)
                 .HasMaxLength(200)
                 .HasColumnName("medical_board");

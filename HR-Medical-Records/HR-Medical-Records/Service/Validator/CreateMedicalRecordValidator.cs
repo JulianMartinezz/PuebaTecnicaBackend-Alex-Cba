@@ -26,6 +26,13 @@ namespace HR_Medical_Records.Service.Validator
                 .Must(BeAValidCreationDate).WithMessage("CREATION_DATE must be automatically generated.");
 
             // 2.2. Mandatory fields
+            RuleFor(x => x.FileId)
+                .NotEmpty().WithMessage("FILE_ID is required.");
+
+            RuleFor(x => x.FileId)
+                .MustAsync((fileId, cancellationToken) => ExistInTMedicalRecord(fileId, cancellationToken))
+                .WithMessage("FILE_ID already register.");
+
             RuleFor(x => x.Diagnosis)
                 .NotEmpty().WithMessage("DIAGNOSIS is required.")
                 .MaximumLength(100).WithMessage("DIAGNOSIS cannot exceed 100 characters.");
@@ -92,6 +99,11 @@ namespace HR_Medical_Records.Service.Validator
             return creationDate.HasValue && creationDate.Value <= DateOnly.FromDateTime(DateTime.Now);
         }
 
+        private async Task<bool> ExistInTMedicalRecord(int fileId, CancellationToken cancellationToken)
+        {
+            return !await _context.TMedicalRecords
+                                .AnyAsync(s => s.FileId == fileId, cancellationToken);
+        }
 
         private async Task<bool> ExistInStatusTable(int statusId, CancellationToken cancellationToken)
         {

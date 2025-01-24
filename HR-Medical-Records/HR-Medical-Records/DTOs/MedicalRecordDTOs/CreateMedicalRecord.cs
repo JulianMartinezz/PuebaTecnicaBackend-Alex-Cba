@@ -2,6 +2,7 @@
 {
     public class CreateMedicalRecord
     {
+        public int FileId { get; set; }
         public string? Audiometry { get; set; }
         public string? PositionChange { get; set; }
         public string? MotherData { get; set; }

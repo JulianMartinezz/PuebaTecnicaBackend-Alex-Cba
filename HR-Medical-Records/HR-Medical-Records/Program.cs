@@ -1,9 +1,11 @@
+using FluentValidation;
 using HR_Medical_Records.Data;
 using HR_Medical_Records.Middleware;
 using HR_Medical_Records.Repository;
 using HR_Medical_Records.Repository.Imp;
 using HR_Medical_Records.Service.Imp;
 using HR_Medical_Records.Service.Interface;
+using HR_Medical_Records.Service.Validator;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -27,6 +29,8 @@ builder.Services.AddDbContext<HRContext>(options =>
 //Remember Add Scopes for services!!!
 builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateMedicalRecordValidator>();
+
 
 var app = builder.Build();
 

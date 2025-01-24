@@ -8,6 +8,6 @@ namespace HR_Medical_Records.Repository
     public interface IMedicalRecordRepository
     {
         Task<TMedicalRecord?> GetById(int medicalRecordId);
-        Task<BaseResponse<SimpleMedicalRecordDTO>> Register(CreateMedicalRecord request);
+        Task<TMedicalRecord> Register(TMedicalRecord request);
     }
 }
