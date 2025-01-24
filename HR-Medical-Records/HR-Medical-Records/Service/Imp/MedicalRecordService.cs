@@ -8,25 +8,25 @@ using HR_Medical_Records.Middleware.Exceptions;
 using HR_Medical_Records.Models;
 using HR_Medical_Records.Repository;
 using HR_Medical_Records.Service.Interface;
-using HR_Medical_Records.Service.Validator;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace HR_Medical_Records.Service.Imp
 {
     public class MedicalRecordService : IMedicalRecordService
     {
         private readonly IMedicalRecordRepository _medicalRecordRepository;
+        private readonly IStatusRepository _statusRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<MedicalRecordService> _logger;
         private readonly HRContext _context;
         private readonly IServiceProvider _serviceProvider;
 
-        public MedicalRecordService(IMedicalRecordRepository medicalRecordRepository, IMapper mapper, HRContext context, IServiceProvider serviceProvider)
+        public MedicalRecordService(IMedicalRecordRepository medicalRecordRepository, IStatusRepository statusRepository, IMapper mapper, HRContext context, IServiceProvider serviceProvider)
         {
             _medicalRecordRepository = medicalRecordRepository;
             _mapper = mapper;
             _context = context;
             _serviceProvider = serviceProvider;
+            _statusRepository = statusRepository;
         }
 
         public async Task<BaseResponse<MedicalRecordDTO>> GetMedicalRecordById(int medicalRecordId)
@@ -57,6 +57,28 @@ namespace HR_Medical_Records.Service.Imp
             return BaseResponseHelper.CreateSuccessful(result);
         }
 
+        public async Task<BaseResponse<SimpleMedicalRecordDTO>> DeleteMedicalRecord(SoftDeleteMedicalRecord request, Guid userId)
+        {
+            await CheckValidator(request);
+
+            var medicalRecord = await _medicalRecordRepository.GetById(request.MedicalRecordId);
+
+            medicalRecord.EndDate = DateOnly.FromDateTime(DateTime.UtcNow);
+            medicalRecord.DeletionDate = DateOnly.FromDateTime(DateTime.UtcNow);
+            medicalRecord.DeletionReason = request.DeletionReason;
+
+            var statusDb = await _statusRepository.GetByName("Inactive");
+
+            medicalRecord.Status = statusDb;
+            medicalRecord.StatusId = statusDb.StatusId;
+            medicalRecord.DeletedBy = userId.ToString();
+
+            var updatedMedicalRecord = await _medicalRecordRepository.Update(medicalRecord);
+
+            var result = _mapper.Map<SimpleMedicalRecordDTO>(updatedMedicalRecord);
+            return BaseResponseHelper.SoftDeleteSuccessful(result);
+        }
+
         private async Task CheckValidator<T>(T requestCommand) where T : class
         {
             var validator = _serviceProvider.GetService<IValidator<T>>();
@@ -64,7 +86,7 @@ namespace HR_Medical_Records.Service.Imp
             if (validator == null)
             {
                 _logger.LogCritical($"Validator Not Found for {typeof(T).Name}");
-                throw new Exception($"No validator found for the type {typeof(T).Name}.");
+                throw new Exception($"No validator found for the type {typeof(T).Name}");
             }
 
             var validationResult = await validator.ValidateAsync(requestCommand);

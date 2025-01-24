@@ -29,7 +29,9 @@ builder.Services.AddDbContext<HRContext>(options =>
 //Remember Add Scopes for services!!!
 builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
+builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateMedicalRecordValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<SoftDeleteMedicalRecordValidator>();
 
 
 var app = builder.Build();

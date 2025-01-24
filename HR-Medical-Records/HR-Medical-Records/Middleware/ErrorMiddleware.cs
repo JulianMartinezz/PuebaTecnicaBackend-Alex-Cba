@@ -54,7 +54,7 @@ namespace HR_Medical_Records.Middleware
                     default:
                         // 500 Internal Server Error
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        baseResponse.Message = "An unexpected error occurred.";
+                        baseResponse.Message = "An unexpected error occurred";
                         baseResponse.Code = response.StatusCode;
                         baseResponse.Exception = "Exception";
                         break;

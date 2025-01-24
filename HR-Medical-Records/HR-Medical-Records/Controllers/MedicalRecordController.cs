@@ -47,10 +47,17 @@ namespace HR_Medical_Records.Controllers
 
         //}
 
-        //[HttpPatch("softDelete/{medicalRecordId}")]
-        //public async Task<IActionResult> DeleteMedicalRecord([FromRoute] int medicalRecordId)
-        //{
+        [HttpPatch("softDelete")]
+        public async Task<IActionResult> DeleteMedicalRecord([FromBody] SoftDeleteMedicalRecord request,
+                                                             [FromHeader(Name = "x-user-id")] Guid userId)
+        {
+            if (userId == Guid.Empty)
+            {
+                return BadRequest("The 'x-user-id' header is required");
+            }
 
-        //}
+            var response = await _medicalRecordService.DeleteMedicalRecord(request, userId);
+            return Ok(response);
+        }
     }
 }

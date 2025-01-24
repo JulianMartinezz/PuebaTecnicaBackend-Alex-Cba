@@ -9,5 +9,6 @@ namespace HR_Medical_Records.Repository
     {
         Task<TMedicalRecord?> GetById(int medicalRecordId);
         Task<TMedicalRecord> Register(TMedicalRecord request);
+        Task<TMedicalRecord> Update(TMedicalRecord medicalRecord);
     }
 }

@@ -34,5 +34,20 @@ namespace HR_Medical_Records.Helpers
             };
         }
 
+        public static BaseResponse<T> SoftDeleteSuccessful<T>(T data, int? totalRows = null)
+        {
+            string entityName = typeof(T).Name;
+            string message = $"{entityName} has been successfully eliminated";
+
+            return new BaseResponse<T>
+            {
+                Success = true,
+                Message = message,
+                Data = data,
+                Code = 200,
+                TotalRows = totalRows ?? 0
+            };
+        }
+
     }
 }

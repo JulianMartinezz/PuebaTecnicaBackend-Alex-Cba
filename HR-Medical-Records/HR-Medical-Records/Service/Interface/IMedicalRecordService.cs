@@ -7,5 +7,6 @@ namespace HR_Medical_Records.Service.Interface
     {
         Task<BaseResponse<MedicalRecordDTO>> GetMedicalRecordById(int medicalRecordId);
         Task<BaseResponse<SimpleMedicalRecordDTO>> AddMedicalRecord(CreateMedicalRecord request, Guid userId);
+        Task<BaseResponse<SimpleMedicalRecordDTO>> DeleteMedicalRecord(SoftDeleteMedicalRecord request, Guid userId);
     }
 }
