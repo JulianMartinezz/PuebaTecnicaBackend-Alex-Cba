@@ -21,6 +21,21 @@ namespace HR_Medical_Records.Helpers
             };
         }
 
+        public static BaseResponse<T> UpdateSuccessful<T>(T data, int? totalRows = null)
+        {
+            string entityName = typeof(T).Name;
+            string message = $"{entityName} has been successfully updated";
+
+            return new BaseResponse<T>
+            {
+                Success = true,
+                Message = message,
+                Data = data,
+                Code = 200,
+                TotalRows = totalRows.HasValue ? totalRows.Value : AffectedRows.HasValue ? AffectedRows.Value : 0,
+            };
+        }
+
         public static BaseResponse<T> GetSuccessful<T>(T data, int? totalRows = null)
         {
             string entityName = typeof(T).Name;
