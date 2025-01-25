@@ -10,12 +10,22 @@
         public string? Observations { get; set; }
         public string? VoiceEvaluation { get; set; }
         public string? MedicalBoard { get; set; }
+        public string? FatherData { get; set; }
+        public string? MotherData { get; set; }
+        public string? OtherFamilyData { get; set; }
         public DateOnly? StartDate { get; set; }
         public DateOnly? EndDate { get; set; }
         public DateOnly? CreationDate { get; set; }
         public string? CreatedBy { get; set; }
+        public int? StatusId { get; set; }
+        public string? Status { get; set; }
         public string? StatusDescription { get; set; }
+        public int? MedicalRecordTypeId { get; set; }
+        public string? MedicalRecordType { get; set; }
         public string? MedicalRecordTypeDescription { get; set; }
+        public string? ExecuteMicros { get; set; }
+        public string? ExecuteExtra { get; set; }
+        public string? PositionChange { get; set; }
 
         // Metadata for deleted or modified records
         public bool IsDeleted => DeletionDate.HasValue;
@@ -24,6 +34,7 @@
         public string? DeletionReason { get; set; }
         public DateOnly? ModificationDate { get; set; }
         public string? ModifiedBy { get; set; }
+        public string? AreaChange { get; set; }
 
         // Computed property to summarize key aspects
         public string Summary => $"{MedicalRecordTypeDescription} - {StatusDescription} ({DisabilityPercentage?.ToString() ?? "0"}% Disability)";

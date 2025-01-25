@@ -1,6 +1,4 @@
-﻿
-using HR_Medical_Records.DTOs.BaseResponse;
-using HR_Medical_Records.DTOs.MedicalRecordDTOs;
+﻿using HR_Medical_Records.DTOs.MedicalRecordDTOs;
 using HR_Medical_Records.Models;
 
 namespace HR_Medical_Records.Repository
@@ -10,5 +8,6 @@ namespace HR_Medical_Records.Repository
         Task<TMedicalRecord?> GetById(int medicalRecordId);
         Task<TMedicalRecord> Register(TMedicalRecord request);
         Task<TMedicalRecord> Update(TMedicalRecord medicalRecord);
+        Task<IQueryable<TMedicalRecord>> GetAllWithFilter(MedicalRecordFilterRequest filter);
     }
 }

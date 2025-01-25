@@ -11,10 +11,13 @@ namespace HR_Medical_Records.Service.Validator
 
         public CreateUpdateMedicalRecordValidator(HRContext context)
         {
+            _context = context;
+
             // 2.1. Date validations
             RuleFor(x => x.StartDate)
                 .NotEmpty().WithMessage("START_DATE is required")
-                .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.Now)).WithMessage("START_DATE cannot be a future date");
+                .Must(date => date == DateOnly.FromDateTime(DateTime.Now))
+                .WithMessage("START_DATE must be the current date");
 
             RuleFor(x => x.EndDate)
                 .GreaterThan(x => x.StartDate)
@@ -42,9 +45,6 @@ namespace HR_Medical_Records.Service.Validator
             RuleFor(x => x.Diagnosis)
                 .NotEmpty().WithMessage("DIAGNOSIS is required")
                 .MaximumLength(100).WithMessage("DIAGNOSIS cannot exceed 100 characters");
-
-            RuleFor(x => x.StartDate)
-                .NotEmpty().WithMessage("START_DATE is required");
 
             RuleFor(x => x.StatusId)
                 .NotEmpty().WithMessage("STATUS_ID is required");
@@ -85,35 +85,35 @@ namespace HR_Medical_Records.Service.Validator
 
             // 2.5. Validation of 'YES' or 'NO' fields
             RuleFor(x => x.Audiometry)
-                .Must(BeYesOrNo).WithMessage("AUDIOMETRY must be 'YES' or 'NO'");
+                .Must(BeYesOrNo).WithMessage("AUDIOMETRY must be 'Y' or 'N'");
 
             RuleFor(x => x.PositionChange)
-                .Must(BeYesOrNo).WithMessage("POSITION_CHANGE must be 'YES' or 'NO'");
+                .Must(BeYesOrNo).WithMessage("POSITION_CHANGE must be 'Y' or 'N'");
 
             RuleFor(x => x.Observations)
                 .NotEmpty()
-                .When(x => x.PositionChange?.ToUpperInvariant() == "YES")
-                .WithMessage("OBSERVATIONS is required when POSITION_CHANGE is 'YES'");
+                .When(x => x.PositionChange?.ToUpperInvariant() == "Y")
+                .WithMessage("OBSERVATIONS is required when POSITION_CHANGE is 'Y'");
 
             RuleFor(x => x.ExecuteMicros)
-                .Must(BeYesOrNo).WithMessage("EXECUTE_MICROS must be 'YES' or 'NO'");
+                .Must(BeYesOrNo).WithMessage("EXECUTE_MICROS must be 'Y' or 'N'");
 
             RuleFor(x => x.ExecuteExtra)
-                .Must(BeYesOrNo).WithMessage("EXECUTE_EXTRA must be 'YES' or 'NO'");
+                .Must(BeYesOrNo).WithMessage("EXECUTE_EXTRA must be 'Y' or 'N'");
 
             RuleFor(x => x.VoiceEvaluation)
-                .Must(BeYesOrNo).WithMessage("VOICE_EVALUATION must be 'YES' or 'NO'");
+                .Must(BeYesOrNo).WithMessage("VOICE_EVALUATION must be 'Y' or 'N'");
 
             RuleFor(x => x.Disability)
-                .Must(BeYesOrNo).WithMessage("DISABILITY must be 'YES' or 'NO'");
+                .Must(BeYesOrNo).WithMessage("DISABILITY must be 'Y' or 'N'");
 
             RuleFor(x => x.DisabilityPercentage)
                 .InclusiveBetween(0, 100)
-                .When(x => x.Disability?.ToUpperInvariant() == "YES")
-                .WithMessage("DISABILITY_PERCENTAGE must be between 0 and 100 when DISABILITY is 'YES'");
+                .When(x => x.Disability?.ToUpperInvariant() == "Y")
+                .WithMessage("DISABILITY_PERCENTAGE must be between 0 and 100 when DISABILITY is 'Y'");
 
             RuleFor(x => x.AreaChange)
-                .Must(BeYesOrNo).WithMessage("AREA_CHANGE must be 'YES' or 'NO'");
+                .Must(BeYesOrNo).WithMessage("AREA_CHANGE must be 'Y' or 'N'");
         }
 
         private bool BeAValidCreationDate(DateOnly? creationDate)
@@ -123,7 +123,7 @@ namespace HR_Medical_Records.Service.Validator
 
         private async Task<bool> ExistInTMedicalRecord(int? medicalRecordId, CancellationToken cancellationToken)
         {
-            return !await _context.TMedicalRecords
+            return await _context.TMedicalRecords
                                 .AnyAsync(s => s.MedicalRecordId == medicalRecordId, cancellationToken);
         }
 
@@ -147,7 +147,7 @@ namespace HR_Medical_Records.Service.Validator
 
         private bool BeYesOrNo(string? value)
         {
-            return !string.IsNullOrEmpty(value) && (value.ToUpperInvariant() == "YES" || value.ToUpperInvariant() == "NO");
+            return !string.IsNullOrEmpty(value) && (value.ToUpperInvariant() == "Y" || value.ToUpperInvariant() == "N");
         }
     }
 }

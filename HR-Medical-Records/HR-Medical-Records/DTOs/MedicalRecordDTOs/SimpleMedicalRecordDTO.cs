@@ -6,7 +6,6 @@
         public string? Diagnosis { get; set; }
         public string? Disability { get; set; }
         public decimal? DisabilityPercentage { get; set; }
-        public string? StatusDescription { get; set; }
         public DateOnly? StartDate { get; set; }
         public DateOnly? EndDate { get; set; }
     }

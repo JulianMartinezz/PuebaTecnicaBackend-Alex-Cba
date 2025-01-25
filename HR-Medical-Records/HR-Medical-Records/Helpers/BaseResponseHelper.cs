@@ -4,6 +4,8 @@ namespace HR_Medical_Records.Helpers
 {
     public static class BaseResponseHelper
     {
+        public static int? AffectedRows { get; set; }
+
         public static BaseResponse<T> CreateSuccessful<T>(T data, int? totalRows = null)
         {
             string entityName = typeof(T).Name;
@@ -15,7 +17,7 @@ namespace HR_Medical_Records.Helpers
                 Message = message,
                 Data = data,
                 Code = 201,
-                TotalRows = totalRows ?? 0
+                TotalRows = totalRows.HasValue ? totalRows.Value : AffectedRows.HasValue ? AffectedRows.Value : 0,
             };
         }
 
@@ -30,7 +32,7 @@ namespace HR_Medical_Records.Helpers
                 Message = message,
                 Data = data,
                 Code = 200,
-                TotalRows = totalRows ?? 0
+                TotalRows = totalRows.HasValue ? totalRows.Value : AffectedRows.HasValue ? AffectedRows.Value : 0,
             };
         }
 
@@ -45,7 +47,7 @@ namespace HR_Medical_Records.Helpers
                 Message = message,
                 Data = data,
                 Code = 200,
-                TotalRows = totalRows ?? 0
+                TotalRows = totalRows.HasValue ? totalRows.Value : AffectedRows.HasValue ? AffectedRows.Value : 0,
             };
         }
 

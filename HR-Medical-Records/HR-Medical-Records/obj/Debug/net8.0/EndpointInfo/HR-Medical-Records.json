@@ -5,6 +5,100 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/MedicalRecord/filter": {
+      "get": {
+        "tags": [
+          "MedicalRecord"
+        ],
+        "parameters": [
+          {
+            "name": "StatusId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "StartDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "EndDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "MedicalRecordTypeId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "FieldFilter",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/SORTBY"
+            }
+          },
+          {
+            "name": "ColumnFilter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Sorting",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SortingDTO"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/MedicalRecord/{medicalRecordId}": {
       "get": {
         "tags": [
@@ -270,6 +364,13 @@
         },
         "additionalProperties": false
       },
+      "SORTBY": {
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "type": "string"
+      },
       "SoftDeleteMedicalRecord": {
         "type": "object",
         "properties": {
@@ -278,6 +379,19 @@
             "format": "int32"
           },
           "deletionReason": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortingDTO": {
+        "type": "object",
+        "properties": {
+          "sortBy": {
+            "$ref": "#/components/schemas/SORTBY"
+          },
+          "field": {
             "type": "string",
             "nullable": true
           }

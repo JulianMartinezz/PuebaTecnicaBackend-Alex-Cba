@@ -64,10 +64,6 @@ namespace HR_Medical_Records.Middleware
                 {
                     baseResponse.Exception = $"{error.Message} | Inner Exception: {error.InnerException.Message}";
                 }
-                else
-                {
-                    baseResponse.Exception = error.Message;
-                }
 
                 var jsonResponse = JsonSerializer.Serialize(baseResponse);
 

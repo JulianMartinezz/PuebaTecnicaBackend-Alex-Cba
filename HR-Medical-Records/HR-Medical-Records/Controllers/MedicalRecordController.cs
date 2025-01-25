@@ -14,11 +14,12 @@ namespace HR_Medical_Records.Controllers
             _medicalRecordService = medicalRecordService;
         }
 
-        //[HttpGet("filter")]
-        //public async Task<IActionResult> GetFilterMedicalRecords()
-        //{
-
-        //}
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetFilterMedicalRecords([FromQuery] MedicalRecordFilterRequest request)
+        {
+            var response = await _medicalRecordService.GetFilterMedicalRecords(request);
+            return Ok(response);
+        }
 
         [HttpGet("{medicalRecordId}")]
         public async Task<IActionResult> GetMedicalRecordById([FromRoute] int medicalRecordId)

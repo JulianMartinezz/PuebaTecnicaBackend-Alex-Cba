@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using HR_Medical_Records.Data;
 using HR_Medical_Records.DTOs.BaseResponse;
 using HR_Medical_Records.DTOs.MedicalRecordDTOs;
+using HR_Medical_Records.DTOs.PaginationDTO;
 using HR_Medical_Records.Helpers;
 using HR_Medical_Records.Middleware.Exceptions;
 using HR_Medical_Records.Models;
 using HR_Medical_Records.Repository;
 using HR_Medical_Records.Service.Interface;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace HR_Medical_Records.Service.Imp
 {
@@ -43,7 +45,7 @@ namespace HR_Medical_Records.Service.Imp
             
             var result = _mapper.Map<MedicalRecordDTO>(medicalRecord);
 
-            return BaseResponseHelper.GetSuccessful(result);
+            return BaseResponseHelper.GetSuccessful(result, 1);
         }
 
         public async Task<BaseResponse<SimpleMedicalRecordDTO>> AddUpdateMedicalRecord(CreateAndUpdateMedicalRecord request, Guid userId)
@@ -97,6 +99,31 @@ namespace HR_Medical_Records.Service.Imp
             return BaseResponseHelper.SoftDeleteSuccessful(result);
         }
 
+        public async Task<BaseResponse<PaginationDTO<MedicalRecordDTO>>> GetFilterMedicalRecords(MedicalRecordFilterRequest request)
+        {
+            var medicalRecord = await _medicalRecordRepository.GetAllWithFilter(request);
+
+            if (medicalRecord == null || !medicalRecord.Any())
+            {
+                LogFiltersAsWarning(request);
+                throw new KeyNotFoundException($"Medicals Records not found");
+            }
+
+            var totalRegister = await medicalRecord.CountAsync();
+
+            medicalRecord = SortingHelper.ApplySortingAndPagination(medicalRecord, request, true);
+
+            var medicalRecordDTOs = _mapper.Map<List<MedicalRecordDTO>>(medicalRecord);
+
+            var result = new PaginationDTO<MedicalRecordDTO>()
+            {
+                Items = medicalRecordDTOs,
+                TotalRegisters = totalRegister
+            };
+
+            return BaseResponseHelper.GetSuccessful(result, totalRegister);
+        }
+
         private async Task CheckValidator<T>(T requestCommand) where T : class
         {
             var validator = _serviceProvider.GetService<IValidator<T>>();
@@ -114,6 +141,22 @@ namespace HR_Medical_Records.Service.Imp
                 var validationErrors = string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage));
                 throw new ExceptionBadRequestClient($"Validation failed: {validationErrors}");
             }
+        }
+
+        private void LogFiltersAsWarning(object filter)
+        {
+            var filterProperties = filter.GetType().GetProperties();
+            var logBuilder = new StringBuilder("No medical records found with the provided filters:\n");
+
+            foreach (var property in filterProperties)
+            {
+                var propertyName = property.Name;
+                var propertyValue = property.GetValue(filter, null) ?? "null";
+
+                logBuilder.AppendLine($"- {propertyName}: {propertyValue}");
+            }
+
+            _logger.LogWarning(logBuilder.ToString());
         }
     }
 }
