@@ -47,17 +47,58 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMedicalRecord"
+                "$ref": "#/components/schemas/CreateAndUpdateMedicalRecord"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMedicalRecord"
+                "$ref": "#/components/schemas/CreateAndUpdateMedicalRecord"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMedicalRecord"
+                "$ref": "#/components/schemas/CreateAndUpdateMedicalRecord"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MedicalRecord/update": {
+      "put": {
+        "tags": [
+          "MedicalRecord"
+        ],
+        "parameters": [
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAndUpdateMedicalRecord"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAndUpdateMedicalRecord"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAndUpdateMedicalRecord"
               }
             }
           }
@@ -113,9 +154,14 @@
   },
   "components": {
     "schemas": {
-      "CreateMedicalRecord": {
+      "CreateAndUpdateMedicalRecord": {
         "type": "object",
         "properties": {
+          "medicalRecordId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "fileId": {
             "type": "integer",
             "format": "int32"

@@ -30,7 +30,7 @@ builder.Services.AddDbContext<HRContext>(options =>
 builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
-builder.Services.AddTransient<CreateMedicalRecordValidator>();
+builder.Services.AddTransient<CreateUpdateMedicalRecordValidator>();
 builder.Services.AddTransient<SoftDeleteMedicalRecordValidator>();
 
 

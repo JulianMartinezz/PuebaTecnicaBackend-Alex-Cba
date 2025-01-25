@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HR_Medical_Records.Service.Validator
 {
-    public class CreateMedicalRecordValidator : AbstractValidator<CreateAndUpdateMedicalRecord>
+    public class CreateUpdateMedicalRecordValidator : AbstractValidator<CreateAndUpdateMedicalRecord>
     {
         private readonly HRContext _context;
 
-        public CreateMedicalRecordValidator(HRContext context)
+        public CreateUpdateMedicalRecordValidator(HRContext context)
         {
             // 2.1. Date validations
             RuleFor(x => x.StartDate)
@@ -30,8 +30,14 @@ namespace HR_Medical_Records.Service.Validator
                 .NotEmpty().WithMessage("FILE_ID is required");
 
             RuleFor(x => x.FileId)
-                .MustAsync((fileId, cancellationToken) => ExistInTMedicalRecord(fileId, cancellationToken))
+                .MustAsync((fileId, cancellationToken) => ExistInFileId(fileId, cancellationToken))
+                .When(x => !x.MedicalRecordId.HasValue)
                 .WithMessage("FILE_ID already register");
+
+            RuleFor(x => x.MedicalRecordId)
+                .MustAsync((medicalRecordId, cancellationToken) => ExistInTMedicalRecord(medicalRecordId, cancellationToken))
+                .When(x => x.MedicalRecordId.HasValue)
+                .WithMessage("MEDICAL_RECORD_ID not found");
 
             RuleFor(x => x.Diagnosis)
                 .NotEmpty().WithMessage("DIAGNOSIS is required")
@@ -50,6 +56,12 @@ namespace HR_Medical_Records.Service.Validator
             RuleFor(x => x.StatusId)
                 .MustAsync((statusId, cancellationToken) => ExistInStatusTable(statusId, cancellationToken))
                 .WithMessage("STATUS_ID must exist in the Status table");
+
+            RuleFor(x => x.StatusId)
+                .Must(statusId => statusId != 2)
+                .When(x => !x.MedicalRecordId.HasValue)
+                .WithMessage("Cannot assign status 'Inactive' (StatusId = 2) when creating a new record.");
+
 
             RuleFor(x => x.MedicalRecordTypeId)
                 .MustAsync((typeId, cancellationToken) => ExistInMedicalRecordTypeTable(typeId, cancellationToken))
@@ -78,6 +90,11 @@ namespace HR_Medical_Records.Service.Validator
             RuleFor(x => x.PositionChange)
                 .Must(BeYesOrNo).WithMessage("POSITION_CHANGE must be 'YES' or 'NO'");
 
+            RuleFor(x => x.Observations)
+                .NotEmpty()
+                .When(x => x.PositionChange?.ToUpperInvariant() == "YES")
+                .WithMessage("OBSERVATIONS is required when POSITION_CHANGE is 'YES'");
+
             RuleFor(x => x.ExecuteMicros)
                 .Must(BeYesOrNo).WithMessage("EXECUTE_MICROS must be 'YES' or 'NO'");
 
@@ -90,6 +107,11 @@ namespace HR_Medical_Records.Service.Validator
             RuleFor(x => x.Disability)
                 .Must(BeYesOrNo).WithMessage("DISABILITY must be 'YES' or 'NO'");
 
+            RuleFor(x => x.DisabilityPercentage)
+                .InclusiveBetween(0, 100)
+                .When(x => x.Disability?.ToUpperInvariant() == "YES")
+                .WithMessage("DISABILITY_PERCENTAGE must be between 0 and 100 when DISABILITY is 'YES'");
+
             RuleFor(x => x.AreaChange)
                 .Must(BeYesOrNo).WithMessage("AREA_CHANGE must be 'YES' or 'NO'");
         }
@@ -99,7 +121,13 @@ namespace HR_Medical_Records.Service.Validator
             return creationDate.HasValue && creationDate.Value <= DateOnly.FromDateTime(DateTime.Now);
         }
 
-        private async Task<bool> ExistInTMedicalRecord(int fileId, CancellationToken cancellationToken)
+        private async Task<bool> ExistInTMedicalRecord(int? medicalRecordId, CancellationToken cancellationToken)
+        {
+            return !await _context.TMedicalRecords
+                                .AnyAsync(s => s.MedicalRecordId == medicalRecordId, cancellationToken);
+        }
+
+        private async Task<bool> ExistInFileId(int fileId, CancellationToken cancellationToken)
         {
             return !await _context.TMedicalRecords
                                 .AnyAsync(s => s.FileId == fileId, cancellationToken);

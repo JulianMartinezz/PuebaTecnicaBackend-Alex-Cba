@@ -48,6 +48,8 @@ namespace HR_Medical_Records.Service.Imp
 
         public async Task<BaseResponse<SimpleMedicalRecordDTO>> AddUpdateMedicalRecord(CreateAndUpdateMedicalRecord request, Guid userId)
         {
+            TMedicalRecord medicalRecordToMapped = null;
+
             if (!request.MedicalRecordId.HasValue)
             {
                 request.CreatedBy = userId.ToString();
@@ -56,16 +58,21 @@ namespace HR_Medical_Records.Service.Imp
 
                 var medicalRecord = _mapper.Map<TMedicalRecord>(request);
 
-                var newMedicalRecord = await _medicalRecordRepository.Register(medicalRecord);
-
-                var result = _mapper.Map<SimpleMedicalRecordDTO>(newMedicalRecord);
-                return BaseResponseHelper.CreateSuccessful(result);
+                medicalRecordToMapped = await _medicalRecordRepository.Register(medicalRecord);
             }
             else
             {
-                //TODO: Update
-                return null;
+                request.ModifiedBy = userId.ToString();
+                request.ModificationDate = DateOnly.FromDateTime(DateTime.UtcNow);
+                await CheckValidator(request);
+
+                var medicalRecord = _mapper.Map<TMedicalRecord>(request);
+
+                medicalRecordToMapped = await _medicalRecordRepository.Update(medicalRecord);
             }
+
+            var result = _mapper.Map<SimpleMedicalRecordDTO>(medicalRecordToMapped);
+            return BaseResponseHelper.CreateSuccessful(result);
         }
 
         public async Task<BaseResponse<SimpleMedicalRecordDTO>> DeleteMedicalRecord(SoftDeleteMedicalRecord request, Guid userId)
