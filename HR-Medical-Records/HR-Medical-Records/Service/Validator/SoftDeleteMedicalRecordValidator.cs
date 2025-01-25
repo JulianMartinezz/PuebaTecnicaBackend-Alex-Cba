@@ -18,7 +18,8 @@ namespace HR_Medical_Records.Service.Validator
                 .WithMessage("Medical Record not found with Id");
 
             RuleFor(x => x.DeletionReason)
-                .NotEmpty().WithMessage("The 'DeletionReason' field is required");
+                .NotEmpty().WithMessage("The 'DeletionReason' field is required")
+                .MaximumLength(2000).WithMessage("OBSERVATIONS cannot exceed 2000 characters");
 
             RuleFor(x => x)
                 .MustAsync(async (request, cancellationToken) => await MedicalRecordIsActiveAndValid(request))
