@@ -127,18 +127,19 @@ namespace HR_Medical_Records.Service.Imp
         /// <returns>A task representing the asynchronous operation with a successful response containing a paginated list of medical records.</returns>
         public async Task<BaseResponse<PaginationDTO<MedicalRecordDTO>>> GetFilterMedicalRecords(MedicalRecordFilterRequest request)
         {
-            var medicalRecord = await _medicalRecordRepository.GetAllWithFilter(request);
+            var medicalRecordQuery = _medicalRecordRepository.GetAllWithFilter(request);
 
-            if (medicalRecord == null || !medicalRecord.Any())
+            if (medicalRecordQuery == null || !medicalRecordQuery.Any())
             {
                 LogFiltersAsWarning(request);
                 throw new KeyNotFoundException($"Medicals Records not found");
             }
 
-            var totalRegister = await medicalRecord.CountAsync();
+            var totalRegister = await medicalRecordQuery.CountAsync();
 
-            medicalRecord = SortingHelper.ApplySortingAndPagination(medicalRecord, request, true);
+            medicalRecordQuery = SortingHelper.ApplySortingAndPagination(medicalRecordQuery, request, true);
 
+            var medicalRecord = await medicalRecordQuery.ToListAsync();
             var medicalRecordDTOs = _mapper.Map<List<MedicalRecordDTO>>(medicalRecord);
 
             var result = new PaginationDTO<MedicalRecordDTO>()

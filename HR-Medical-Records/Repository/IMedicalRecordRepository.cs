@@ -35,6 +35,6 @@ namespace HR_Medical_Records.Repository
         /// </summary>
         /// <param name="filter">The filter criteria for retrieving medical records.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains an <see cref="IQueryable{TMedicalRecord}"/> collection of <see cref="TMedicalRecord"/> entities matching the filter criteria.</returns>
-        Task<IQueryable<TMedicalRecord>> GetAllWithFilter(MedicalRecordFilterRequest filter);
+        IQueryable<TMedicalRecord> GetAllWithFilter(MedicalRecordFilterRequest filter);
     }
 }

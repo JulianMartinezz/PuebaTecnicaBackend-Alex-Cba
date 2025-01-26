@@ -24,7 +24,7 @@ namespace HR_Medical_Records.Repository.Imp
         /// </summary>
         /// <param name="filter">The filter criteria for retrieving medical records.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains an <see cref="IQueryable{TMedicalRecord}"/> collection of <see cref="TMedicalRecord"/> entities matching the filter criteria.</returns>
-        public async Task<IQueryable<TMedicalRecord>> GetAllWithFilter(MedicalRecordFilterRequest filter)
+        public IQueryable<TMedicalRecord> GetAllWithFilter(MedicalRecordFilterRequest filter)
         {
             var query = _context.TMedicalRecords.AsNoTracking()
                                         .Include(x => x.MedicalRecordType)
