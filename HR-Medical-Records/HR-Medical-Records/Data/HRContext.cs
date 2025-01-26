@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using HR_Medical_Records.Models;
+﻿using HR_Medical_Records.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace HR_Medical_Records.Data;
@@ -16,8 +14,6 @@ public partial class HRContext : DbContext
     {
     }
 
-    public virtual DbSet<Applicationuser> Applicationusers { get; set; }
-
     public virtual DbSet<MedicalRecordType> MedicalRecordTypes { get; set; }
 
     public virtual DbSet<Status> Statuses { get; set; }
@@ -26,31 +22,6 @@ public partial class HRContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Applicationuser>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("applicationusers_pkey");
-
-            entity.ToTable("applicationusers");
-
-            entity.Property(e => e.Id)
-                .HasMaxLength(255)
-                .HasColumnName("id");
-            entity.Property(e => e.Email)
-                .HasMaxLength(255)
-                .HasColumnName("email");
-            entity.Property(e => e.Name)
-                .HasMaxLength(255)
-                .HasColumnName("name");
-            entity.Property(e => e.Phone)
-                .HasMaxLength(50)
-                .HasColumnName("phone");
-            entity.Property(e => e.Statusid).HasColumnName("statusid");
-
-            entity.HasOne(d => d.Status).WithMany(p => p.Applicationusers)
-                .HasForeignKey(d => d.Statusid)
-                .HasConstraintName("fk_statusid");
-        });
-
         modelBuilder.Entity<MedicalRecordType>(entity =>
         {
             entity.HasKey(e => e.MedicalRecordTypeId).HasName("medical_record_type_pkey");

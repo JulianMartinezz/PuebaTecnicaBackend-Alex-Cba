@@ -17,16 +17,13 @@ namespace HR_Medical_Records.Service.Validator
             RuleFor(x => x.StartDate)
                 .NotEmpty().WithMessage("START_DATE is required")
                 .Must(date => date == DateOnly.FromDateTime(DateTime.Now))
+                .When(x => !x.MedicalRecordId.HasValue)
                 .WithMessage("START_DATE must be the current date");
 
             RuleFor(x => x.EndDate)
                 .GreaterThan(x => x.StartDate)
                 .When(x => x.EndDate.HasValue)
                 .WithMessage("END_DATE must be later than START_DATE");
-
-            RuleFor(x => x.CreationDate)
-                .NotEmpty().WithMessage("CREATION_DATE is required")
-                .Must(BeAValidCreationDate).WithMessage("CREATION_DATE must be automatically generated");
 
             // 2.2. Mandatory fields
             RuleFor(x => x.FileId)
@@ -59,8 +56,7 @@ namespace HR_Medical_Records.Service.Validator
 
             RuleFor(x => x.StatusId)
                 .Must(statusId => statusId != 2)
-                .When(x => !x.MedicalRecordId.HasValue)
-                .WithMessage("Cannot assign status 'Inactive' (StatusId = 2) when creating a new record.");
+                .WithMessage("Cannot assign status 'Inactive' (StatusId = 2) when creating or modifying a record.");
 
 
             RuleFor(x => x.MedicalRecordTypeId)
@@ -114,11 +110,6 @@ namespace HR_Medical_Records.Service.Validator
 
             RuleFor(x => x.AreaChange)
                 .Must(BeYesOrNo).WithMessage("AREA_CHANGE must be 'Y' or 'N'");
-        }
-
-        private bool BeAValidCreationDate(DateOnly? creationDate)
-        {
-            return creationDate.HasValue && creationDate.Value <= DateOnly.FromDateTime(DateTime.Now);
         }
 
         private async Task<bool> ExistInTMedicalRecord(int? medicalRecordId, CancellationToken cancellationToken)

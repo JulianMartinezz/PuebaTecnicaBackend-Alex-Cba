@@ -1,6 +1,4 @@
-﻿using HR_Medical_Records.Models;
-
-namespace HR_Medical_Records.DTOs.BaseResponse
+﻿namespace HR_Medical_Records.DTOs.BaseResponse
 {
     public class BaseResponse<T>
     {

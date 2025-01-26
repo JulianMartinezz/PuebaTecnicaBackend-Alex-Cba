@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace HR_Medical_Records.Models;
+﻿namespace HR_Medical_Records.Models;
 
 public partial class MedicalRecordType
 {
