@@ -1,5 +1,8 @@
 ﻿namespace HR_Medical_Records.DTOs.MedicalRecordDTOs
 {
+    /// <summary>
+    /// Represents the data structure used to create or update a medical record.
+    /// </summary>
     public class CreateAndUpdateMedicalRecord
     {
         public int? MedicalRecordId { get; set; }

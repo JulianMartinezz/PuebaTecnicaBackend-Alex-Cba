@@ -1,5 +1,9 @@
 ﻿namespace HR_Medical_Records.DTOs.MedicalRecordDTOs
 {
+    /// <summary>
+    /// Represents a simplified version of a medical record with essential information such as diagnosis, 
+    /// disability status, and relevant dates.
+    /// </summary>
     public class SimpleMedicalRecordDTO
     {
         public int MedicalRecordId { get; set; }

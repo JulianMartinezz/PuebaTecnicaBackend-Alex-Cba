@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HR_Medical_Records.Data;
 
+/// <summary>
+/// Represents the database context for the HR system, managing the entities and their relationships.
+/// </summary>
 public partial class HRContext : DbContext
 {
     public HRContext()
@@ -14,12 +17,25 @@ public partial class HRContext : DbContext
     {
     }
 
+    /// <summary>
+    /// Represents the MedicalRecordType table in the database.
+    /// </summary>
     public virtual DbSet<MedicalRecordType> MedicalRecordTypes { get; set; }
 
+    /// <summary>
+    /// Represents the Status table in the database.
+    /// </summary>
     public virtual DbSet<Status> Statuses { get; set; }
 
+    /// <summary>
+    /// Represents the TMedicalRecord table in the database.
+    /// </summary>
     public virtual DbSet<TMedicalRecord> TMedicalRecords { get; set; }
 
+    /// <summary>
+    /// Configures the model relationships and mappings for the database tables.
+    /// </summary>
+    /// <param name="modelBuilder">The model builder used to configure entities.</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<MedicalRecordType>(entity =>

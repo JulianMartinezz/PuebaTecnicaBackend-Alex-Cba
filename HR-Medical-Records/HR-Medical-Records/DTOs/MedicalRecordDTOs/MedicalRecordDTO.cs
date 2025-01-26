@@ -1,5 +1,9 @@
 ﻿namespace HR_Medical_Records.DTOs.MedicalRecordDTOs
 {
+    /// <summary>
+    /// Represents the data transfer object (DTO) for a medical record, containing relevant information 
+    /// including diagnosis, status, and metadata such as creation, modification, and deletion details.
+    /// </summary>
     public class MedicalRecordDTO
     {
         public int MedicalRecordId { get; set; }

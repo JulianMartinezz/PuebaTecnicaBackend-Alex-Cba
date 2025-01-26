@@ -5,6 +5,10 @@ using System.Text.Json;
 
 namespace HR_Medical_Records.Middleware
 {
+    /// <summary>
+    /// Middleware for handling errors globally in the application.
+    /// Catches exceptions and returns appropriate HTTP responses with error details.
+    /// </summary>
     public class ErrorMiddleware
     {
         private readonly RequestDelegate _next;
@@ -16,6 +20,11 @@ namespace HR_Medical_Records.Middleware
             _env = env;
         }
 
+        /// <summary>
+        /// Invokes the middleware to handle the request and any potential errors.
+        /// </summary>
+        /// <param name="context">The HTTP context of the request.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         public async Task Invoke(HttpContext context)
         {
             try

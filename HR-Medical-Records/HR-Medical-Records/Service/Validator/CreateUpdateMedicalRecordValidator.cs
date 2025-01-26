@@ -5,10 +5,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HR_Medical_Records.Service.Validator
 {
+    /// <summary>
+    /// Validator class for validating Create and Update requests for medical records.
+    /// This class includes various rules for date validation, mandatory fields, related record checks, 
+    /// maximum length validation, and specific field constraints.
+    /// </summary>
     public class CreateUpdateMedicalRecordValidator : AbstractValidator<CreateAndUpdateMedicalRecord>
     {
         private readonly HRContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateUpdateMedicalRecordValidator"/> class.
+        /// </summary>
+        /// <param name="context">The database context used to perform async validation checks.</param>
         public CreateUpdateMedicalRecordValidator(HRContext context)
         {
             _context = context;
@@ -112,30 +121,59 @@ namespace HR_Medical_Records.Service.Validator
                 .Must(BeYesOrNo).WithMessage("AREA_CHANGE must be 'Y' or 'N'");
         }
 
+        /// <summary>
+        /// Checks if the medical record ID exists in the TMedicalRecords table.
+        /// </summary>
+        /// <param name="medicalRecordId">The medical record ID to check.</param>
+        /// <param name="cancellationToken">The cancellation token for async operations.</param>
+        /// <returns>True if the record exists, otherwise false.</returns>
         private async Task<bool> ExistInTMedicalRecord(int? medicalRecordId, CancellationToken cancellationToken)
         {
             return await _context.TMedicalRecords
                                 .AnyAsync(s => s.MedicalRecordId == medicalRecordId, cancellationToken);
         }
 
+        /// <summary>
+        /// Checks if the File ID exists in the TMedicalRecords table.
+        /// </summary>
+        /// <param name="fileId">The file ID to check.</param>
+        /// <param name="cancellationToken">The cancellation token for async operations.</param>
+        /// <returns>True if the file ID does not exist, otherwise false.</returns>
         private async Task<bool> ExistInFileId(int fileId, CancellationToken cancellationToken)
         {
             return !await _context.TMedicalRecords
                                 .AnyAsync(s => s.FileId == fileId, cancellationToken);
         }
 
+        /// <summary>
+        /// Checks if the status ID exists in the Status table.
+        /// </summary>
+        /// <param name="statusId">The status ID to check.</param>
+        /// <param name="cancellationToken">The cancellation token for async operations.</param>
+        /// <returns>True if the status ID exists, otherwise false.</returns>
         private async Task<bool> ExistInStatusTable(int statusId, CancellationToken cancellationToken)
         {
             return await _context.Statuses
                                 .AnyAsync(s => s.StatusId == statusId, cancellationToken);
         }
 
+        /// <summary>
+        /// Checks if the medical record type ID exists in the MedicalRecordType table.
+        /// </summary>
+        /// <param name="typeId">The type ID to check.</param>
+        /// <param name="cancellationToken">The cancellation token for async operations.</param>
+        /// <returns>True if the medical record type ID exists, otherwise false.</returns>
         private async Task<bool> ExistInMedicalRecordTypeTable(int typeId, CancellationToken cancellationToken)
         {
             return await _context.MedicalRecordTypes
                                 .AnyAsync(m => m.MedicalRecordTypeId == typeId, cancellationToken);
         }
 
+        /// <summary>
+        /// Validates if a value is 'Y' or 'N' (Yes or No).
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <returns>True if the value is 'Y' or 'N', otherwise false.</returns>
         private bool BeYesOrNo(string? value)
         {
             return !string.IsNullOrEmpty(value) && (value.ToUpperInvariant() == "Y" || value.ToUpperInvariant() == "N");

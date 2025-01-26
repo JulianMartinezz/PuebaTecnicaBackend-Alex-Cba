@@ -1,5 +1,9 @@
 ﻿namespace HR_Medical_Records.Models;
 
+/// <summary>
+/// Represents a medical record with details about the patient's health, medical history, and status.
+/// Includes information such as diagnosis, disability, dates, and links to related status and medical record types.
+/// </summary>
 public partial class TMedicalRecord
 {
     public int MedicalRecordId { get; set; }

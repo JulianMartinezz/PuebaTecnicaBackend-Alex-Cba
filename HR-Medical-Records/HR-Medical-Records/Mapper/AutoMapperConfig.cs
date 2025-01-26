@@ -4,8 +4,14 @@ using HR_Medical_Records.Models;
 
 namespace HR_Medical_Records.Mapper
 {
+    /// <summary>
+    /// AutoMapper configuration class for mapping between various medical record models and DTOs.
+    /// </summary>
     public class AutoMapperConfig : Profile
     {
+        /// <summary>
+        /// Configures the mappings for medical record-related models.
+        /// </summary>
         public AutoMapperConfig()
         {
             CreateMap<TMedicalRecord, MedicalRecordDTO>()

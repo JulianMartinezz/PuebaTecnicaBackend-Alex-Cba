@@ -13,6 +13,9 @@ using System.Text;
 
 namespace HR_Medical_Records.Service.Imp
 {
+    /// <summary>
+    /// Service class responsible for handling medical record operations including retrieval, creation, updating, and deletion.
+    /// </summary>
     public class MedicalRecordService : IMedicalRecordService
     {
         private readonly IMedicalRecordRepository _medicalRecordRepository;
@@ -34,6 +37,11 @@ namespace HR_Medical_Records.Service.Imp
             _logger = logger;
         }
 
+        /// <summary>
+        /// Retrieves a medical record by its ID.
+        /// </summary>
+        /// <param name="medicalRecordId">The ID of the medical record.</param>
+        /// <returns>A task representing the asynchronous operation with a successful response containing the medical record data.</returns>
         public async Task<BaseResponse<MedicalRecordDTO>> GetMedicalRecordById(int medicalRecordId)
         {
             var medicalRecord = await _medicalRecordRepository.GetById(medicalRecordId);
@@ -48,6 +56,12 @@ namespace HR_Medical_Records.Service.Imp
             return BaseResponseHelper.GetSuccessful(result, 1);
         }
 
+        /// <summary>
+        /// Adds or updates a medical record depending on whether the ID is provided in the request.
+        /// </summary>
+        /// <param name="request">The request containing medical record data to be added or updated.</param>
+        /// <param name="userId">The ID of the user performing the operation.</param>
+        /// <returns>A task representing the asynchronous operation with a successful response containing the medical record data.</returns>
         public async Task<BaseResponse<SimpleMedicalRecordDTO>> AddUpdateMedicalRecord(CreateAndUpdateMedicalRecord request, Guid userId)
         {
 
@@ -78,6 +92,12 @@ namespace HR_Medical_Records.Service.Imp
             }
         }
 
+        /// <summary>
+        /// Soft deletes a medical record by setting its status to "Inactive" and updating related fields.
+        /// </summary>
+        /// <param name="request">The request containing the medical record ID and deletion reason.</param>
+        /// <param name="userId">The ID of the user performing the deletion.</param>
+        /// <returns>A task representing the asynchronous operation with a successful response indicating the deletion status.</returns>
         public async Task<BaseResponse<SimpleMedicalRecordDTO>> DeleteMedicalRecord(SoftDeleteMedicalRecord request, Guid userId)
         {
             await CheckValidator(request);
@@ -100,6 +120,11 @@ namespace HR_Medical_Records.Service.Imp
             return BaseResponseHelper.SoftDeleteSuccessful(result);
         }
 
+        /// <summary>
+        /// Retrieves medical records that match the provided filter criteria.
+        /// </summary>
+        /// <param name="request">The filter criteria to search for medical records.</param>
+        /// <returns>A task representing the asynchronous operation with a successful response containing a paginated list of medical records.</returns>
         public async Task<BaseResponse<PaginationDTO<MedicalRecordDTO>>> GetFilterMedicalRecords(MedicalRecordFilterRequest request)
         {
             var medicalRecord = await _medicalRecordRepository.GetAllWithFilter(request);
@@ -125,6 +150,12 @@ namespace HR_Medical_Records.Service.Imp
             return BaseResponseHelper.GetSuccessful(result, totalRegister);
         }
 
+        /// <summary>
+        /// Validates a request using a specific validator.
+        /// </summary>
+        /// <typeparam name="T">The type of request to be validated.</typeparam>
+        /// <param name="requestCommand">The request to be validated.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         private async Task CheckValidator<T>(T requestCommand) where T : class
         {
             var validator = _serviceProvider.GetService<IValidator<T>>();
@@ -144,6 +175,10 @@ namespace HR_Medical_Records.Service.Imp
             }
         }
 
+        /// <summary>
+        /// Logs the filter parameters when no medical records are found with the provided filters.
+        /// </summary>
+        /// <param name="filter">The filter parameters used for the search.</param>
         private void LogFiltersAsWarning(object filter)
         {
             var filterProperties = filter.GetType().GetProperties();
