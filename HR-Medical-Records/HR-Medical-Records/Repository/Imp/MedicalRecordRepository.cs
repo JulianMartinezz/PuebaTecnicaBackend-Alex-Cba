@@ -18,15 +18,24 @@ namespace HR_Medical_Records.Repository.Imp
         public async Task<IQueryable<TMedicalRecord>> GetAllWithFilter(MedicalRecordFilterRequest filter)
         {
             var query = _context.TMedicalRecords.AsNoTracking()
-                                                            .Include(x => x.MedicalRecordType)
-                                                            .Include(x => x.Status)
-                                                            .Where(x =>
-                                                                    filter.FieldFilter != null && x.FileId == filter.FieldFilter ||
-                                                                    filter.StatusId != null && x.StatusId == filter.StatusId ||
-                                                                    filter.MedicalRecordTypeId != null && x.MedicalRecordTypeId == filter.MedicalRecordTypeId ||
-                                                                    filter.StartDate.HasValue && x.StartDate >= filter.StartDate ||
-                                                                    filter.EndDate.HasValue && x.EndDate <= filter.EndDate)
-                                                            .AsQueryable();
+                                        .Include(x => x.MedicalRecordType)
+                                        .Include(x => x.Status)
+                                        .AsQueryable();
+
+            if (filter.FieldFilter != null)
+                query = query.Where(x => x.FileId == filter.FieldFilter);
+
+            if (filter.StatusId != null)
+                query = query.Where(x => x.StatusId == filter.StatusId);
+
+            if (filter.MedicalRecordTypeId != null)
+                query = query.Where(x => x.MedicalRecordTypeId == filter.MedicalRecordTypeId);
+
+            if (filter.StartDate.HasValue)
+                query = query.Where(x => x.StartDate >= filter.StartDate);
+
+            if (filter.EndDate.HasValue)
+                query = query.Where(x => x.EndDate <= filter.EndDate);
 
             return query;
         }
